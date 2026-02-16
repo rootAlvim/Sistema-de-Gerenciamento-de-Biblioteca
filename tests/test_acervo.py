@@ -25,4 +25,5 @@ l2 = Livro(
 acervo.adicionar_livro(l1,12)
 acervo.adicionar_livro(l2,20)
 print(acervo.consultar_acervo())
-print(l1)
+acervo.remover_livro_id(6,12)
+print(acervo.consultar_acervo())
