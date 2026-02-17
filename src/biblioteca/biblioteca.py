@@ -1,6 +1,7 @@
 from src.biblioteca.acervo import Acervo
 from src.biblioteca.funcionario import Funcionario
 from src.biblioteca.usuario import Usuario
+from src.biblioteca.emprestimo import Emprestimo
 class Biblioteca:
     def __init__(self,nome):
         self.nome = nome
@@ -24,7 +25,11 @@ class Biblioteca:
     def registrarUsuario(self, nome, cpf, data_nascimento,endereco):
         self.__idusuario += 1 
         usuario = Usuario(nome,cpf,data_nascimento,self.__idusuario,endereco)
+        self.__usuarios.append(usuario)
         return usuario
     
-    def registrar_Emprestimo(self):
-        pass
+    def registrar_Emprestimo(self,usuario,data_emprestimo):
+        self.__idemprestimo += 1 
+        emprestimo = Emprestimo(self.__idemprestimo,usuario,data_emprestimo)
+        self.__emprestimos.append(emprestimo)
+        return emprestimo
