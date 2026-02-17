@@ -20,12 +20,12 @@ class Livro:
     
     def __str__(self):
         return (
-            f"ID: {self.__id}\n"
-            f"Título: {self.titulo}\n"
-            f"Autor: {self.autor}\n"
-            f"Editora: {self.editora}\n"
-            f"Edição: {self.edicao}\n"
-            f"Ano de Publicação: {self.ano_publicacao}\n"
-            f"Gênero: {self.genero}\n"
-            f"Preço: R$ {self.__preco:.2f}"
+            f"ID: {self.__id} |"
+            f"Título: {self.titulo} |"
+            f"Autor: {self.autor} |"
+            f"Editora: {self.editora} |"
+            f"Edição: {self.edicao} |"
+            f"Ano de Publicação: {self.ano_publicacao} |"
+            f"Gênero: {self.genero} |"
+            f"Preço: R$ {self.__preco:.2f} |"
         )
