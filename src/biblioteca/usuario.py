@@ -1,7 +1,7 @@
 from src.biblioteca.pessoa import Pessoa
 from datetime import datetime
 class Usuario(Pessoa):
-    def __init__(self, nome:str, cpf:str, data_nascimento:datetime,id:int,endereco:str,):
+    def __init__(self, nome:str, cpf:str, data_nascimento:datetime,id:int,endereco:str):
         super().__init__(nome, cpf, data_nascimento)
         self.__id = id
         self.__endereco = endereco
