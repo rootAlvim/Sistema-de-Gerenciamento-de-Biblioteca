@@ -7,8 +7,7 @@ class Livro:
         self.ano_publicacao = ano_pulicacao
         self.genero = genero 
         self.__preco = preco
-        self.__id = id
-    
+        self.__id = id 
     def get_preco(self):
         return self.__preco
     
