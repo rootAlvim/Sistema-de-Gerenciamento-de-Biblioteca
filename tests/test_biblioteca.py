@@ -12,7 +12,11 @@ l2 = Livro(
     1.20,
     3
 )
-f1.get_biblioteca().getAcervo().adicionar_livro(l2,12)
-print(f1.get_biblioteca().getAcervo().consultar_acervo())
-f1.get_biblioteca().getAcervo().remover_livro_id(4,2)
-print(f1.get_biblioteca().getAcervo().consultar_acervo())
+u = f1.get_biblioteca().registrarUsuario('Chico','12312312312','1-1-1990','Rua joao preto')
+print(*f1.get_biblioteca().getUsuarios(),sep='\n')
+
+f1.get_biblioteca().registrar_Emprestimo(u,'1-1-1990')
+print(*f1.get_biblioteca().getEmprestimos(),sep='\n')
+
+f1.get_biblioteca().excluirUsuario(1)
+print(f1.get_biblioteca().getUsuarios())
