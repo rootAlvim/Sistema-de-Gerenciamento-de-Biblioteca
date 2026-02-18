@@ -12,18 +12,14 @@ l2 = Livro(
     1.20,
     3
 )
-u = f1.get_biblioteca().registrarUsuario('Chico','12312312312','1-1-1990','Rua joao preto')
-u2 = f1.get_biblioteca().registrarUsuario('Damiao','12312313122','1-1-1990','Rua ')
-print(*f1.get_biblioteca().getUsuarios(),sep='\n')
-
-f1.get_biblioteca().registrar_Emprestimo(u,'1-1-1990')
-print(*f1.get_biblioteca().getEmprestimos(),sep='\n')
-
-#f1.get_biblioteca().excluirEmprestimo(1)
-'''f1.get_biblioteca().excluirUsuario(2)
-f1.get_biblioteca().excluirUsuario(1)
-print(f1.get_biblioteca().getUsuarios())'''
-print('=============================================================================')
-f1.get_biblioteca().getEmprestimos()[-1].Adicionar_livro(l2,2)
-f1.get_biblioteca().getEmprestimos()[-1].Adicionar_livro(l2,1111111111111)
+usuario = f1.get_biblioteca().registrarUsuario(
+    "Alvim",
+    "12345678909",
+    "23-1-1978",
+    "rua Chico buarque"
+)
+f1.get_biblioteca().registrar_Emprestimo(usuario,"12-1-2089")
+f1.get_biblioteca().getEmprestimos()[-1].Adicionar_livro(l2,12)
+print(f1.get_biblioteca().getEmprestimos()[-1].getLivros())
+f1.get_biblioteca().getEmprestimos()[-1].Remover_livro(l2,1)
 print(f1.get_biblioteca().getEmprestimos()[-1].getLivros())
