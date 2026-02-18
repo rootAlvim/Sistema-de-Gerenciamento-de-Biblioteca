@@ -33,6 +33,7 @@ class Biblioteca:
         emprestimo = Emprestimo(self.__idemprestimo,usuario,data_emprestimo)
         self.__emprestimos.append(emprestimo)
         return emprestimo
+    
     def excluirUsuario(self,id_usuario):
         lista = self.getUsuarios()
         for n in lista:
@@ -40,3 +41,11 @@ class Biblioteca:
                 lista.remove(n)
                 return True
         raise ValueError('Usuario não encontrado')
+    
+    def excluirEmprestimo(self,id_emprestimo):
+        lista = self.getEmprestimos()
+        for n in lista:
+            if id_emprestimo == n.getId():
+                lista.remove(n)
+                return True
+        raise ValueError('Emprestimo não encontrado')
