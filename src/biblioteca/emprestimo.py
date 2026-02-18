@@ -14,4 +14,5 @@ class Emprestimo:
         return self.__livros
     def getDataEmprestimo(self):
         return self.__data_emprestimo
-    
+    def __repr__(self):
+        return f'Id: {self.getId()} | Usuario: {self.getUsuario().nome} | Data: {self.getDataEmprestimo()}'
