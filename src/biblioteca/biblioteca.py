@@ -30,7 +30,7 @@ class Biblioteca:
     
     def registrar_Emprestimo(self,usuario,data_emprestimo):
         self.__idemprestimo += 1 
-        emprestimo = Emprestimo(self.__idemprestimo,usuario,data_emprestimo)
+        emprestimo = Emprestimo(self.__idemprestimo,usuario,data_emprestimo,self)
         self.__emprestimos.append(emprestimo)
         return emprestimo
     
