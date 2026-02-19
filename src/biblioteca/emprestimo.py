@@ -67,10 +67,11 @@ class Emprestimo:
                 return True
         raise ValueError("Livro não está adicionado no emprestimo")
     
+    
     def Finalizar_emprestimo(self):
         if self.__preco_total:
             raise PermissionError("Emprestimo já finalizado")
-        for item in self.__livros:
+        for item in self.__livros: 
             self.__bibilioteca.getAcervo().livro_disponibilidade(item.id,item.quantidade)
         sub = 0
         for item in self.__livros:
