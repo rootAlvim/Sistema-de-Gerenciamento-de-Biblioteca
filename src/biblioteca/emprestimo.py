@@ -1,11 +1,14 @@
 from src.biblioteca.livro import Livro
 class Emprestimo:
-    def __init__(self,id,usuario,data_emprestimo):
+    def __init__(self,id,usuario,data_emprestimo,biblioteca):
         self.__id = id
         self.__usuario = usuario
         self.__data_emprestimo = data_emprestimo
         self.__livros = []
-        self.__data_entrega = 0
+        self.__data_entrega = '0'
+        self.__status = False
+        self.__preco_total = 0
+        self.__bibilioteca = biblioteca
 
     def getId(self):
         return self.__id
@@ -17,12 +20,16 @@ class Emprestimo:
         return self.__data_emprestimo
     def getDataEntrega(self):
         return self.__data_entrega
+    def getStatus(self):
+        return self.__status
+    def getPreco_total(self):
+        return self.__preco_total
     
     def __repr__(self):
         return f'Id do Emprestimo: {self.getId()} | Usuario: {self.getUsuario().nome} | Data: {self.getDataEmprestimo()}'
     
     def Adicionar_livro(self,livro,qntd):
-        if self.__data_entrega:
+        if self.__preco_total:
             raise PermissionError("Emprestimo ja finalizado")
         if int(qntd) <= 0:
             raise ValueError('Quantidade deve ser maior que 0')
@@ -47,7 +54,7 @@ class Emprestimo:
         )
 
     def Remover_livro(self,livro,qntd):
-        if self.__data_entrega:
+        if self.__preco_total:
             raise PermissionError("Emprestimo já finalizado")
         if int(qntd) <= 0:
             raise ValueError("Quantidade deve ser maior que 0")
@@ -61,8 +68,20 @@ class Emprestimo:
         raise ValueError("Livro não está adicionado no emprestimo")
     
     def Finalizar_emprestimo(self):
-        if self.__data_entrega:
+        if self.__preco_total:
             raise PermissionError("Emprestimo já finalizado")
+        for item in self.__livros:
+            self.__bibilioteca.getAcervo().livro_disponibilidade(item.id,item.quantidade)
+        sub = 0
+        for item in self.__livros:
+            sub += item.preco
+        for item in self.__livros:
+            self.__bibilioteca.getAcervo().remover_livro_id(item.id, item.quantidade)
+
+        self.__preco_total = sub
+        self.__data_entrega = '1-1-1990'
+        self.__status = True  
+
         
 
 class Item:
