@@ -1,0 +1,116 @@
+from src.biblioteca.biblioteca import Biblioteca
+from src.biblioteca.acervo import Acervo
+from src.biblioteca.emprestimo import Emprestimo
+from src.biblioteca.funcionario import Funcionario
+from src.biblioteca.livro import Livro
+from src.biblioteca.pessoa import Pessoa
+from src.biblioteca.usuario import Usuario
+import os
+import time
+import random
+B = Biblioteca("PAulo freire")
+f = Funcionario(
+    "Clara",
+    "12345678909",
+    "1-1-1990",
+    1.900,
+    "Gerente",
+    B
+)
+def limpar_tela():
+        """Limpa o console."""
+        os.system('cls' if os.name == 'nt' else 'clear')   
+
+def funcionario():
+    def adicionar_livro():
+        numero = random.randint(1, 10) 
+
+        titulo = input("Digite o Título do Livro: ")
+        autor = input("Digite o Autor do Livro: ")
+        editora = input("Digite a Editora do Livro: ")
+        edicao = input("Digite a Edição do Livro: ")
+        ano_publi = int(input("Digite o Ano de Publicação do Livro: "))
+        genero = input("Digite o Gênero do Livro: ")
+        preco = float(input("Digite o Preço do Livro: "))
+        qntd = int(input("Digite a Quantidade: "))
+
+        l = Livro(titulo, autor, editora, edicao, ano_publi, genero, preco, numero)
+        f.get_biblioteca().getAcervo().adicionar_livro(l, qntd)
+        input("\nPressione Enter para voltar ao menu...")
+
+    def remover_livro():
+        opc = input("Remover Livro por(Nome/Id): ").lower()  # Sem int(), mantém como string
+        if opc == "id":
+            id = int(input("Digite o id: "))
+            qntd = int(input("Digite a Quantidade: "))
+            f.get_biblioteca().getAcervo().remover_livro_id(id, qntd)
+            input("\nPressione Enter para voltar ao menu...")
+        elif opc == "nome":
+            nome = input("Digite o nome do livro: ")
+            qntd = int(input("Digite a Quantidade: "))
+            f.get_biblioteca().getAcervo().remover_livro_nome(nome, qntd)
+            input("\nPressione Enter para voltar ao menu...")
+        else:
+            print("Opção inválida!")
+            input("\nPressione Enter para voltar ao menu...")
+    
+    def consultar_acervo():
+        print(f.get_biblioteca().getAcervo().consultar_acervo())
+        input("\nPressione Enter para voltar ao menu...")
+    def menu():
+
+        limpar_tela()
+        print(f"=" * 40)
+        print(f"    Bem Vindo {f.nome} ")
+        print(f"=" * 40 + f"")
+
+ 
+
+       
+
+        print(f"\n------------------  ACERVO  -------------------")
+        print(" [1]  Adicionar Livro ao Acervo")
+        print(" [2]  Remover Livro do Acervo")
+        print(" [3]  Buscar Livro")
+        print(" [4]  Consultar Acervo")
+        print("-" * 40)
+        print(f" [0]  Logout")
+        print("-" * 40)
+
+    while True:
+
+        menu() 
+        opcao = input(str("Escolha uma opção: "))
+        if opcao == '1':
+            adicionar_livro()
+        elif opcao == '2':
+            remover_livro()
+        elif opcao == '0':
+            print("\nSaindo do menu... Até logo!")
+            time.sleep(1)
+            break
+        elif opcao == '4':
+            consultar_acervo()
+        else:
+                print("\nOpção inválida!")
+                time.sleep(1)
+if __name__ == "__main__":
+        
+
+    while True:
+            limpar_tela()
+            print("=" * 40)
+            print("     Biclioteca Paulo Freire")
+            print("=" * 40)
+            print("\n[1] Entrar no sistema (Cadastrar/Login Gerente)")
+            print("[0] Encerrar Programa")
+            opc = input(str("\nEscolha uma opção: "))
+
+            if opc == "0":
+                print("\nEncerrando sistema... Até logo!")
+                break # Sai do loop principal e termina o programa
+
+            if opc == "1":
+                limpar_tela()
+                funcionario()
+                break
