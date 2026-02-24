@@ -12,7 +12,12 @@ B = Biblioteca("PAulo freire")
 def carregar_dados_iniciais(B):
     l1 = Livro("Dom Casmurro", "Machado", "Saraiva", 1, "1899", "Romance", 30.0, 5)
     l2 = Livro("Python POO", "Alguém", "Tech", 2, "2020", "Tecnico", 50.0, 3)
-
+    B.registrarUsuario(
+    "Vanessa",
+    "12345678909",
+    "12-1-1001",
+    "Rua joão preto, numero 13, bairro cascalho"
+    )
     B.getAcervo().adicionar_livro(l1, 10)
     B.getAcervo().adicionar_livro(l2, 5)
     f = B.registrarFuncionario(
@@ -20,10 +25,11 @@ def carregar_dados_iniciais(B):
         "12345678909",
         "1-1-1990",
         1.200,
-        "Bibliotecario"
+        "Bibliotecario",
     )
 carregar_dados_iniciais(B)
 f = B.getFuncionario()
+
 def limpar_tela():
         """Limpa o console."""
         os.system('cls' if os.name == 'nt' else 'clear')   
@@ -31,6 +37,7 @@ def limpar_tela():
 def funcionario():
 
     def adicionar_livro():
+        limpar_tela()
         numero = random.randint(1, 10) 
 
         titulo = input("Digite o Título do Livro: ")
@@ -47,6 +54,7 @@ def funcionario():
         input("\nPressione Enter para voltar ao menu...")
 
     def remover_livro():
+        limpar_tela()
         opc = input("Remover Livro por(Nome/Id): ").lower() 
         if opc == "id":
             id = int(input("Digite o id: "))
@@ -62,7 +70,8 @@ def funcionario():
             print("Opção inválida!")
             input("\nPressione Enter para voltar ao menu...")
     def buscar_livro():
-        opc = input("Buscar Livro por(Nome/Id: ").lower()
+        limpar_tela()
+        opc = input("Buscar Livro por(Nome/Id: )".lower())
         if opc == "nome":
             nome = str(input("Digite o Nome do Livro: "))
             print(f.get_biblioteca().getAcervo().consultar_livro_nome(nome))
@@ -75,10 +84,32 @@ def funcionario():
             print("Opção inválida!")
             input("\nPressione Enter para voltar ao menu...")
     def consultar_acervo():
+        limpar_tela()
         acervo = f.get_biblioteca().getAcervo().consultar_acervo()
         print(*(f"{k}: {v}" for k, v in acervo.items()), sep='\n')    
         input("\nPressione Enter para voltar ao menu...")
-        
+    
+    def x():
+        limpar_tela()
+        cpf = input("Digite o cpf do usuario: ")
+        if B.getClientePorCpf(cpf) is None:
+            print("Usuario não cadrastado")
+            limpar_tela()
+            nome = str(input("Digite o nome: "))
+            cpf = str(input("Digite o cpf: "))
+            data_nascimento = str(input("Digite a data de nascimento: "))
+            endereco = str(input("endereco: "))
+            usuario = B.registrarUsuario(nome,cpf,data_nascimento,endereco)
+        else:
+            usuario = B.getClientePorCpf(cpf)
+        e = B.registrar_Emprestimo(usuario,'1-1-1990')
+        nome = str(input("Digite o Nome do Livro: "))
+        l,_  = B.getAcervo().consultar_livro_nome(nome)
+        qntd = int(input("Digite a quantidade: "))
+        e.Adicionar_livro(l,qntd)
+        e.Finalizar_emprestimo()
+        print(B.getUsuarios()[-1].get_emprestimos())
+        input("\nPressione Enter para voltar ao menu...")
     def menu():
 
         limpar_tela()
@@ -96,6 +127,9 @@ def funcionario():
         print(" [3]  Buscar Livro")
         print(" [4]  Consultar Acervo")
         print("-" * 40)
+        print(f"\n------------------    EMPRÉSTIMO OU COMPRA  -------------------")
+        print(" [5]  Consultar Acervo")
+        print("-" * 40)
         print(f" [0]  Logout")
         print("-" * 40)
 
@@ -107,14 +141,16 @@ def funcionario():
             adicionar_livro()
         elif opcao == '2':
             remover_livro()
-        elif opcao == '0':
-            print("\nSaindo do menu... Até logo!")
-            time.sleep(1)
-            break
         elif opcao == "3":
             buscar_livro()
         elif opcao == '4':
             consultar_acervo()
+        elif opcao == '5':
+            x()
+        elif opcao == '0':
+            print("\nSaindo do menu... Até logo!")
+            time.sleep(1)
+            break
         else:
                 print("\nOpção inválida!")
                 time.sleep(1)
