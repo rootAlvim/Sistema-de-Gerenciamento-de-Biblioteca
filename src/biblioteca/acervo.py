@@ -62,7 +62,7 @@ class Acervo:
             if n['livro'].titulo.lower() == nome.lower():
                 livro = n['livro']
                 qntd = n['Quantidade']
-                return livro ,qntd
+                return livro,qntd
             
     def consultar_livro_id(self,id):
         if id in self.__acervo:
