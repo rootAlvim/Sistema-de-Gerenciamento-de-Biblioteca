@@ -8,9 +8,12 @@ class Biblioteca:
         self.__emprestimos = []
         self.__acervo = Acervo()
         self.__usuarios = []
+        self.__funcionario = None
         self.__idVendas = 0
         self.__idemprestimo = 0
         self.__idusuario = 0
+    def getFuncionario(self):
+        return self.__funcionario
     def getEmprestimos(self):
         return self.__emprestimos
     def getAcervo(self):
@@ -20,6 +23,7 @@ class Biblioteca:
     
     def registrarFuncionario(self,nome, cpf, data_nascimento,salario,cargo):
         funcionario = Funcionario(nome,cpf,data_nascimento,salario,cargo,self)
+        self.__funcionario = funcionario
         return funcionario
 
     def registrarUsuario(self, nome, cpf, data_nascimento,endereco):
