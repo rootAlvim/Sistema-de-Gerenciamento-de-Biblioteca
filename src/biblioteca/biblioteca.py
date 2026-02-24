@@ -21,6 +21,12 @@ class Biblioteca:
     def getUsuarios(self):
         return self.__usuarios
     
+    def getClientePorCpf(self, cpf):
+        '''Retorna objeto de cliente caso exista um com o mesmo cpf recebido.'''
+        for cliente in self.__usuarios:
+            if cpf == cliente.get_cpf():
+                return cliente
+            
     def registrarFuncionario(self,nome, cpf, data_nascimento,salario,cargo):
         funcionario = Funcionario(nome,cpf,data_nascimento,salario,cargo,self)
         self.__funcionario = funcionario
