@@ -9,19 +9,27 @@ import os
 import time
 import random
 B = Biblioteca("PAulo freire")
-f = Funcionario(
-    "Clara",
-    "12345678909",
-    "1-1-1990",
-    1.900,
-    "Gerente",
-    B
-)
+def carregar_dados_iniciais(B):
+    l1 = Livro("Dom Casmurro", "Machado", "Saraiva", 1, "1899", "Romance", 30.0, 5)
+    l2 = Livro("Python POO", "Alguém", "Tech", 2, "2020", "Tecnico", 50.0, 3)
+
+    B.getAcervo().adicionar_livro(l1, 10)
+    B.getAcervo().adicionar_livro(l2, 5)
+    f = B.registrarFuncionario(
+        "Clara",
+        "12345678909",
+        "1-1-1990",
+        1.200,
+        "Bibliotecario"
+    )
+carregar_dados_iniciais(B)
+f = B.getFuncionario()
 def limpar_tela():
         """Limpa o console."""
         os.system('cls' if os.name == 'nt' else 'clear')   
 
 def funcionario():
+
     def adicionar_livro():
         numero = random.randint(1, 10) 
 
@@ -39,7 +47,7 @@ def funcionario():
         input("\nPressione Enter para voltar ao menu...")
 
     def remover_livro():
-        opc = input("Remover Livro por(Nome/Id): ").lower()  # Sem int(), mantém como string
+        opc = input("Remover Livro por(Nome/Id): ").lower() 
         if opc == "id":
             id = int(input("Digite o id: "))
             qntd = int(input("Digite a Quantidade: "))
@@ -53,10 +61,24 @@ def funcionario():
         else:
             print("Opção inválida!")
             input("\nPressione Enter para voltar ao menu...")
-    
+    def buscar_livro():
+        opc = input("Buscar Livro por(Nome/Id: ").lower()
+        if opc == "nome":
+            nome = str(input("Digite o Nome do Livro: "))
+            print(f.get_biblioteca().getAcervo().consultar_livro_nome(nome))
+            input("\nPressione Enter para voltar ao menu...")
+        elif opc == "id":
+            id = int(input("Digite o Id do Livro: "))
+            print(f.get_biblioteca().getAcervo().consultar_livro_id(id))
+            input("\nPressione Enter para voltar ao menu...")
+        else:
+            print("Opção inválida!")
+            input("\nPressione Enter para voltar ao menu...")
     def consultar_acervo():
-        print(f.get_biblioteca().getAcervo().consultar_acervo())
+        acervo = f.get_biblioteca().getAcervo().consultar_acervo()
+        print(*(f"{k}: {v}" for k, v in acervo.items()), sep='\n')    
         input("\nPressione Enter para voltar ao menu...")
+        
     def menu():
 
         limpar_tela()
@@ -89,6 +111,8 @@ def funcionario():
             print("\nSaindo do menu... Até logo!")
             time.sleep(1)
             break
+        elif opcao == "3":
+            buscar_livro()
         elif opcao == '4':
             consultar_acervo()
         else:
