@@ -15,7 +15,7 @@ class Livro:
         return self.__id
     
     def __repr__(self):
-        return f"Id={self.get_id()}, Nome={self.titulo}, Preço={self.get_preco()}, Quantidade"
+        return f"Id={self.get_id()}, Nome={self.titulo}, Preço={self.get_preco()}, Quantidade: "
     
     def __str__(self):
         return (
