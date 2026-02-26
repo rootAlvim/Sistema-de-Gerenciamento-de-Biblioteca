@@ -29,3 +29,5 @@ usuario = f1.get_biblioteca().registrarUsuario(
     "23-1-1978",
     "rua Chico buarque"
 )
+print(b.getClientePorCpf("12345678909"))
+print(b)
