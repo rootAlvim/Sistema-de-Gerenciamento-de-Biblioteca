@@ -63,7 +63,8 @@ class Emprestimo:
             raise PermissionError("Emprestimo já finalizado")
         if int(qntd) <= 0:
             raise ValueError("Quantidade deve ser maior que 0")
-
+        if not self.__livros:
+            raise ValueError("Não é possível finalizar sem livros")
         for item in self.__livros:
             if livro.get_id() == item.id:
                 if item.quantidade < qntd:
@@ -86,9 +87,9 @@ class Emprestimo:
 
         self.__preco_total = sub
         self.__data_entrega = '1-1-1990'
-        self.__status = True  
+        self.__status = False 
         self.__usuario.get_emprestimos().append(self)
-        self.setStatus(False) 
+
         
 
 class Item:
