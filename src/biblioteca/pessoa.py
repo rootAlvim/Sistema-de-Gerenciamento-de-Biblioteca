@@ -17,9 +17,7 @@ class Pessoa(ABC):
         '''Retorna Data de Nascimento da Pessoa'''
         return self.__data_nascimento
     def set_cpf(self,cpf_novo):
-        if not validar_formato_cpf(cpf_novo):
-            raise ValueError("CPF Inválido")
-        else:
+            validar_formato_cpf(cpf_novo)
             self.__cpf = cpf_novo
             return True
     
