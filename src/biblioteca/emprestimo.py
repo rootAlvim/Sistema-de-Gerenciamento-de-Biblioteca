@@ -25,14 +25,17 @@ class Emprestimo:
             return f'Finalizado'
         else:
             return f'Pendente'
-        
-    def setStatus(self,status):
-        self.__status = status
+    
     def getPreco_total(self):
         return self.__preco_total
     def __str__(self):
         return f'{self.getId()} | {self.getUsuario().nome} | {self.getLivros()} | {self.getDataEmprestimo()} | {self.getDataEntrega()} | {self.getStatus()} | {self.getPreco_total()}'
     
+    def setStatus(self,status):
+        if not isinstance(status,bool):
+            raise ValueError("Valor deve ser do tipo booleano!")
+        self.__status = status
+        
     def __repr__(self):
         return f'Id do Emprestimo: {self.getId()} | Usuario: {self.getUsuario().nome} | Data: {self.getDataEmprestimo()} | Status: {self.getStatus()}'
     
