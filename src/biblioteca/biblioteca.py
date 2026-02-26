@@ -2,6 +2,7 @@ from src.biblioteca.acervo import Acervo
 from src.biblioteca.funcionario import Funcionario
 from src.biblioteca.usuario import Usuario
 from src.biblioteca.emprestimo import Emprestimo
+from src.validacoes.validacoes import validar_formato_cpf
 class Biblioteca:
     def __init__(self,nome):
         self.nome = nome
@@ -26,6 +27,7 @@ class Biblioteca:
     
     def getClientePorCpf(self, cpf):
         '''Retorna objeto de cliente caso exista um com o mesmo cpf recebido.'''
+        validar_formato_cpf(cpf)
         for cliente in self.__usuarios:
             if cpf == cliente.get_cpf():
                 return cliente
