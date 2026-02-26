@@ -21,12 +21,17 @@ class Emprestimo:
     def getDataEntrega(self):
         return self.__data_entrega
     def getStatus(self):
-        return self.__status
+        if self.__status:
+            return f'Finalizado'
+        else:
+            return f'Pendente'
+    def setStatus(self,status):
+        self.__status = status
     def getPreco_total(self):
         return self.__preco_total
     
     def __repr__(self):
-        return f'Id do Emprestimo: {self.getId()} | Usuario: {self.getUsuario().nome} | Data: {self.getDataEmprestimo()}'
+        return f'Id do Emprestimo: {self.getId()} | Usuario: {self.getUsuario().nome} | Data: {self.getDataEmprestimo()} | Status: {self.getStatus()}'
     
     def Adicionar_livro(self,livro,qntd):
         if self.__preco_total:
@@ -82,7 +87,8 @@ class Emprestimo:
         self.__preco_total = sub
         self.__data_entrega = '1-1-1990'
         self.__status = True  
-
+        self.__usuario.get_emprestimos().append(self)
+        self.setStatus(False) 
         
 
 class Item:
