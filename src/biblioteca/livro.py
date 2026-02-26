@@ -28,4 +28,5 @@ class Livro:
             f"Gênero: {self.genero} |"
             f"Preço: R$ {self.__preco:.2f} |"
             f"Quantidade"
+            
         )
