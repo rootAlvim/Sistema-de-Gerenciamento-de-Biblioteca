@@ -21,6 +21,9 @@ class Biblioteca:
     def getUsuarios(self):
         return self.__usuarios
     
+    def __str__(self):
+        return f"({self.getFuncionario()}) |{self.getEmprestimos()} |{self.getUsuarios()}"
+    
     def getClientePorCpf(self, cpf):
         '''Retorna objeto de cliente caso exista um com o mesmo cpf recebido.'''
         for cliente in self.__usuarios:
