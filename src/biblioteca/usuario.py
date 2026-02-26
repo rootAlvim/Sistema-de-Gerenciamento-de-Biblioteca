@@ -20,6 +20,6 @@ class Usuario(Pessoa):
     def get_pendencias(self):
         return self.__pendencias
     def __repr__(self):
-        return f"Nome: {self.nome} | Id: {self.get_id()} | Endereço: {self.get_endereco()}"
+        return f"Id: {self.get_id()} | Nome: {self.nome} | Endereço: {self.get_endereco()}"
     def __str__(self):
-        return f"Nome: {self.nome} | Id: {self.get_id()} | Endereço: {self.get_endereco()}"
+        return f"Id: {self.get_id()} | Nome: {self.nome} | Endereço: {self.get_endereco()}"
