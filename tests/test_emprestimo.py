@@ -22,5 +22,6 @@ Usuario = blibioteca.registrarUsuario(
 x = blibioteca.registrar_Emprestimo(Usuario,'21-3-1998')
 x.Adicionar_livro(livro,2)
 x.Adicionar_livro(livro,1)
-x.Remover_livro(livro,3)
+x.Finalizar_emprestimo()
 print(x)
+print(blibioteca)
