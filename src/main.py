@@ -38,8 +38,8 @@ def funcionario():
 
     def adicionar_livro():
         limpar_tela()
-        numero = random.randint(1, 10) 
-
+        print("=============== CADRASTAR LIVRO =============== ")
+        id_livro = random.randint(1, 10) 
         titulo = input("Digite o Título do Livro: ")
         autor = input("Digite o Autor do Livro: ")
         editora = input("Digite a Editora do Livro: ")
@@ -49,12 +49,13 @@ def funcionario():
         preco = float(input("Digite o Preço do Livro: "))
         qntd = int(input("Digite a Quantidade: "))
 
-        l = Livro(titulo, autor, editora, edicao, ano_publi, genero, preco, numero)
-        f.get_biblioteca().getAcervo().adicionar_livro(l, qntd)
+        livro = Livro(titulo, autor, editora, edicao, ano_publi, genero, preco, id_livro)
+        f.get_biblioteca().getAcervo().adicionar_livro(livro, qntd)
         input("\nPressione Enter para voltar ao menu...")
 
     def remover_livro():
         limpar_tela()
+        print("=============== REMOVER LIVRO =============== ")
         opc = input("Remover Livro por(Nome/Id): ").lower() 
         if opc == "id":
             id = int(input("Digite o id: "))
