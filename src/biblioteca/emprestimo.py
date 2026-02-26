@@ -25,10 +25,13 @@ class Emprestimo:
             return f'Finalizado'
         else:
             return f'Pendente'
+        
     def setStatus(self,status):
         self.__status = status
     def getPreco_total(self):
         return self.__preco_total
+    def __str__(self):
+        return f'{self.getId()} | {self.getUsuario().nome} | {self.getLivros()} | {self.getDataEmprestimo()} | {self.getDataEntrega()} | {self.getStatus()} | {self.getPreco_total()}'
     
     def __repr__(self):
         return f'Id do Emprestimo: {self.getId()} | Usuario: {self.getUsuario().nome} | Data: {self.getDataEmprestimo()} | Status: {self.getStatus()}'
@@ -63,13 +66,14 @@ class Emprestimo:
             raise PermissionError("Emprestimo já finalizado")
         if int(qntd) <= 0:
             raise ValueError("Quantidade deve ser maior que 0")
-        if not self.__livros:
-            raise ValueError("Não é possível finalizar sem livros")
         for item in self.__livros:
             if livro.get_id() == item.id:
                 if item.quantidade < qntd:
                     raise ValueError("Quantidade excede valor disponível para remoção")
-                item.quantidade -= qntd
+                elif item.quantidade == qntd:
+                    self.__livros.remove(item)
+                else:
+                    item.quantidade -= qntd
                 return True
         raise ValueError("Livro não está adicionado no emprestimo")
     
@@ -77,6 +81,8 @@ class Emprestimo:
     def Finalizar_emprestimo(self):
         if self.__preco_total:
             raise PermissionError("Emprestimo já finalizado")
+        if not self.__livros:
+            raise ValueError("Não é possível finalizar sem livros")
         for item in self.__livros: 
             self.__bibilioteca.getAcervo().livro_disponibilidade(item.id,item.quantidade)
         sub = 0
