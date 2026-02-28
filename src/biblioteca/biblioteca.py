@@ -64,3 +64,15 @@ class Biblioteca:
                 lista.remove(n)
                 return True
         raise ValueError('Emprestimo não encontrado')
+    def buscar_usuario(self,id):
+        lista = self.getUsuarios()
+        for n in lista:
+            if id == n.get_id():
+                return n
+            break
+
+    def consultar_emprestimo(self,usuario,id):
+        for n in usuario.get_emprestimos():
+            if id == n.getId():
+                return n
+            break
