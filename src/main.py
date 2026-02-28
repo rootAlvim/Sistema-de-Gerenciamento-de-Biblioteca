@@ -8,7 +8,22 @@ from src.biblioteca.usuario import Usuario
 import os
 import time
 import random
-B = Biblioteca("PAulo freire")
+def ler_inteiro(mensagem):
+    while True:
+        try:
+            return int(input(mensagem))
+        except ValueError:
+            print("Entrada inválida. Digite apenas números inteiros.")
+            limpar_tela()
+def ler_quebrado(mensagem):
+    while True:
+        try:
+            return float(input(mensagem))
+        except ValueError:
+            print("Entrada inválida. Digite apenas números.")
+            
+
+B = Biblioteca("Paulo Freire")
 def carregar_dados_iniciais(B):
     l1 = Livro("Dom Casmurro", "Machado", "Saraiva", 1, "1899", "Romance", 30.0, 5)
     l2 = Livro("Python POO", "Alguém", "Tech", 2, "2020", "Tecnico", 50.0, 3)
@@ -39,17 +54,18 @@ def funcionario():
     def adicionar_livro():
         limpar_tela()
         print("=============== CADRASTAR LIVRO =============== ")
-        id_livro = random.randint(1, 10) 
-        titulo = input("Digite o Título do Livro: ")
-        autor = input("Digite o Autor do Livro: ")
-        editora = input("Digite a Editora do Livro: ")
-        edicao = input("Digite a Edição do Livro: ")
-        ano_publi = int(input("Digite o Ano de Publicação do Livro: "))
-        genero = input("Digite o Gênero do Livro: ")
-        preco = float(input("Digite o Preço do Livro: "))
-        qntd = int(input("Digite a Quantidade: "))
+        id_livro = 1
+        titulo = str(input("Digite o Título do Livro: "))
+        autor = str(input("Digite o Autor do Livro: "))
+        editora = str(input("Digite a Editora do Livro: "))
+        edicao = ler_inteiro("Digite a Edição do Livro: ")
+        ano_publi = ler_inteiro("Digite o Ano de Publicação do Livro: ")
+        genero = str(input("Digite o Gênero do Livro: "))
+        preco = ler_quebrado("Digite o Preço do Livro: ")
+        qntd = ler_inteiro("Digite a Quantidade: ")
 
         livro = Livro(titulo, autor, editora, edicao, ano_publi, genero, preco, id_livro)
+        id_livro += 1
         f.get_biblioteca().getAcervo().adicionar_livro(livro, qntd)
         input("\nPressione Enter para voltar ao menu...")
 
@@ -58,13 +74,13 @@ def funcionario():
         print("=============== REMOVER LIVRO =============== ")
         opc = input("Remover Livro por(Nome/Id): ").lower() 
         if opc == "id":
-            id = int(input("Digite o id: "))
-            qntd = int(input("Digite a Quantidade: "))
+            id = ler_inteiro("Digite o id: ")
+            qntd = ler_inteiro("Digite a Quantidade: ")
             f.get_biblioteca().getAcervo().remover_livro_id(id, qntd)
             input("\nPressione Enter para voltar ao menu...")
         elif opc == "nome":
-            nome = input("Digite o nome do livro: ")
-            qntd = int(input("Digite a Quantidade: "))
+            nome = str(input("Digite o nome do livro: "))
+            qntd = ler_inteiro("Digite a Quantidade: ")
             f.get_biblioteca().getAcervo().remover_livro_nome(nome, qntd)
             input("\nPressione Enter para voltar ao menu...")
         else:
@@ -72,13 +88,13 @@ def funcionario():
             input("\nPressione Enter para voltar ao menu...")
     def buscar_livro():
         limpar_tela()
-        opc = input("Buscar Livro por(Nome/Id: )".lower())
+        opc = input("Buscar Livro por(Nome/Id): ".lower())
         if opc == "nome":
             nome = str(input("Digite o Nome do Livro: "))
             print(f.get_biblioteca().getAcervo().consultar_livro_nome(nome))
             input("\nPressione Enter para voltar ao menu...")
         elif opc == "id":
-            id = int(input("Digite o Id do Livro: "))
+            id = ler_inteiro("Digite o Id do Livro: ")
             print(f.get_biblioteca().getAcervo().consultar_livro_id(id))
             input("\nPressione Enter para voltar ao menu...")
         else:
@@ -89,7 +105,10 @@ def funcionario():
         acervo = f.get_biblioteca().getAcervo().consultar_acervo()
         print(*(f"{k}: {v}" for k, v in acervo.items()), sep='\n')    
         input("\nPressione Enter para voltar ao menu...")
-    
+    def n():
+        id = ler_inteiro("digite id")
+        print(B.buscar_usuario(id))
+        input("\nPressione Enter para voltar ao menu...")
     def x():
         limpar_tela()
         cpf = input("Digite o cpf do usuario: ")
@@ -147,7 +166,7 @@ def funcionario():
         elif opcao == '4':
             consultar_acervo()
         elif opcao == '5':
-            x()
+            n()
         elif opcao == '0':
             print("\nSaindo do menu... Até logo!")
             time.sleep(1)
