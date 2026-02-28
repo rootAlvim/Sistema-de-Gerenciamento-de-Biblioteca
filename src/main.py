@@ -109,26 +109,25 @@ def funcionario():
         id = ler_inteiro("digite id")
         print(B.buscar_usuario(id))
         input("\nPressione Enter para voltar ao menu...")
-    def x():
+    def realizar_emprestimo():
         limpar_tela()
         cpf = input("Digite o cpf do usuario: ")
-        if B.getClientePorCpf(cpf) is None:
+        if f.get_biblioteca().getClientePorCpf(cpf) is None:
             print("Usuario não cadrastado")
             limpar_tela()
             nome = str(input("Digite o nome: "))
             cpf = str(input("Digite o cpf: "))
             data_nascimento = str(input("Digite a data de nascimento: "))
             endereco = str(input("endereco: "))
-            usuario = B.registrarUsuario(nome,cpf,data_nascimento,endereco)
+            usuario = f.get_biblioteca().registrarUsuario(nome,cpf,data_nascimento,endereco)
         else:
-            usuario = B.getClientePorCpf(cpf)
-        e = B.registrar_Emprestimo(usuario,'1-1-1990')
+            usuario = f.get_biblioteca().getClientePorCpf(cpf)
+        emprestimo = f.get_biblioteca().registrar_Emprestimo(usuario,'1-1-1990')
         nome = str(input("Digite o Nome do Livro: "))
-        l,_  = B.getAcervo().consultar_livro_nome(nome)
-        qntd = int(input("Digite a quantidade: "))
-        e.Adicionar_livro(l,qntd)
-        e.Finalizar_emprestimo()
-        print(B.getUsuarios()[-1].get_emprestimos())
+        livro,_  = B.getAcervo().consultar_livro_nome(nome)
+        qntd = ler_inteiro("Digite a quantidade: ")
+        emprestimo.Adicionar_livro(livro,qntd)
+        emprestimo.Finalizar_emprestimo()
         input("\nPressione Enter para voltar ao menu...")
     def menu():
 
@@ -148,7 +147,7 @@ def funcionario():
         print(" [4]  Consultar Acervo")
         print("-" * 40)
         print(f"\n------------------    EMPRÉSTIMO OU COMPRA  -------------------")
-        print(" [5]  Consultar Acervo")
+        print(" [5]  Realizar Emprestimo")
         print("-" * 40)
         print(f" [0]  Logout")
         print("-" * 40)
@@ -166,7 +165,7 @@ def funcionario():
         elif opcao == '4':
             consultar_acervo()
         elif opcao == '5':
-            n()
+            realizar_emprestimo()
         elif opcao == '0':
             print("\nSaindo do menu... Até logo!")
             time.sleep(1)
@@ -188,7 +187,7 @@ if __name__ == "__main__":
 
             if opc == "0":
                 print("\nEncerrando sistema... Até logo!")
-                break # Sai do loop principal e termina o programa
+                break # Sai do loop principal emprestimo termina o programa
 
             if opc == "1":
                 limpar_tela()
