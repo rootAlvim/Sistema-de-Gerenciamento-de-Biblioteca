@@ -105,9 +105,27 @@ def funcionario():
         acervo = f.get_biblioteca().getAcervo().consultar_acervo()
         print(*(f"{k}: {v}" for k, v in acervo.items()), sep='\n')    
         input("\nPressione Enter para voltar ao menu...")
-    def n():
+    def consultar_usuario():
         id = ler_inteiro("digite id")
-        print(B.buscar_usuario(id))
+        usuario = B.buscar_usuario(id)
+        while True:
+            limpar_tela()
+            print(f"-" * 45)
+            print(f"|             FICHA DO USÚARIO              |") 
+            print("-" * 45)
+            print(f"| {'CAMPO':<15} | {'DADOS':<23} |") # < alinha à esquerda
+            print("-" * 45)
+            print(f'| {'ID':<15} | {usuario.get_id():<23} |')
+            print(f'| {'NOME':<15} | {usuario.nome:<23} |')
+            print(f'| {'CPF':<15} | {usuario.get_cpf():<23} |')
+            print(f'| {'NASCIMENTO':<15} | {usuario.get_data_nascimento():}              | ')
+            print(f'| {'Nº DE EMPRESTIMOS ':<15} | {len(usuario.get_emprestimos()):<25} |')
+            print(f"-" * 45)
+            opc = input("Deseja Listar Emprestimos do usúario(S/N): ").lower()
+            if opc ==  "s":
+                print(f'{usuario.get_emprestimos()}', sep='\n')    
+                break
+
         input("\nPressione Enter para voltar ao menu...")
     def realizar_emprestimo():
         limpar_tela()
@@ -148,6 +166,9 @@ def funcionario():
         print("-" * 40)
         print(f"\n------------------    EMPRÉSTIMO OU COMPRA  -------------------")
         print(" [5]  Realizar Emprestimo")
+        print(" [6]  Realizar Compra")
+        print(" [7]  Consultar Usúario")
+        print(" [8]  Consultar Empréstimo")
         print("-" * 40)
         print(f" [0]  Logout")
         print("-" * 40)
@@ -166,6 +187,8 @@ def funcionario():
             consultar_acervo()
         elif opcao == '5':
             realizar_emprestimo()
+        elif opcao == '7':
+            consultar_usuario()
         elif opcao == '0':
             print("\nSaindo do menu... Até logo!")
             time.sleep(1)
