@@ -14,7 +14,7 @@ def ler_inteiro(mensagem):
             return int(input(mensagem))
         except ValueError:
             print("Entrada inválida. Digite apenas números inteiros.")
-            limpar_tela()
+            #limpar_tela()
 def ler_quebrado(mensagem):
     while True:
         try:
@@ -71,22 +71,37 @@ def funcionario():
         input("\nPressione Enter para voltar ao menu...")
 
     def remover_livro():
-        limpar_tela()
-        print("=============== REMOVER LIVRO =============== ")
-        opc = input("Remover Livro por(Nome/Id): ").lower() 
-        if opc == "id":
-            id = ler_inteiro("Digite o id: ")
-            qntd = ler_inteiro("Digite a Quantidade: ")
-            f.get_biblioteca().getAcervo().remover_livro_id(id, qntd)
-            input("\nPressione Enter para voltar ao menu...")
-        elif opc == "nome":
-            nome = str(input("Digite o nome do livro: "))
-            qntd = ler_inteiro("Digite a Quantidade: ")
-            f.get_biblioteca().getAcervo().remover_livro_nome(nome, qntd)
-            input("\nPressione Enter para voltar ao menu...")
-        else:
-            print("Opção inválida!")
-            input("\nPressione Enter para voltar ao menu...")
+        limpar_tela() 
+        while True:
+            print("=============== REMOVER LIVRO =============== ")
+            opc = input("Remover Livro por(Nome/Id): ").lower() 
+            if opc == "id":
+                id = ler_inteiro("Digite o id: ")
+                qntd = ler_inteiro("Digite a Quantidade: ")
+                try:
+                    f.get_biblioteca().getAcervo().remover_livro_id(id, qntd)
+                    print("Livro removido com sucesso")
+                except ValueError as e:
+                    print(e)
+                break
+                
+            elif opc == "nome":
+                nome = str(input("Digite o nome do livro: "))
+                qntd = ler_inteiro("Digite a Quantidade: ")
+                try:
+                    f.get_biblioteca().getAcervo().remover_livro_nome(nome, qntd)
+                    print("Livro removido com sucesso")
+                except ValueError as e:
+                    print(e)
+                break
+            else:
+                print("Opção inválida!")
+                time.sleep(1)
+                limpar_tela()
+                continue
+        input("\nPressione Enter para voltar ao menu...")
+
+
     def buscar_livro():
         limpar_tela()
         print("=============== BUSCAR LIVRO =============== ")
@@ -102,36 +117,19 @@ def funcionario():
         else:
             print("Opção inválida!")
             input("\nPressione Enter para voltar ao menu...")
+
     def consultar_acervo():
         limpar_tela()
         print("=============== ACERVO ATUAL =============== ")
         acervo = f.get_biblioteca().getAcervo().consultar_acervo()
-        print(*(f"{k}: {v}" for k, v in acervo.items()), sep='\n')    
+        if not acervo:
+            print("Acervo Vazio!")
+        else:
+            print(*(f"{k}: {v}" for k, v in acervo.items()), sep='\n')    
         input("\nPressione Enter para voltar ao menu...")
-    def consultar_usuario():
-        limpar_tela()
-        id = ler_inteiro("digite id ")
-        usuario = B.buscar_usuario(id)
-        while True:
-            limpar_tela()
-            print(f"-" * 46)
-            print(f"|             FICHA DO USÚARIO                |") 
-            print("-" * 46)
-            print(f"| {'CAMPO':<15}   | {'DADOS':<23} |") # < alinha à esquerda
-            print("-" * 46)
-            print(f'| {'ID':<15}   | {usuario.get_id():<23} |')
-            print(f'| {'NOME':<15}   | {usuario.nome:<23} |')
-            print(f'| {'CPF':<15}   | {usuario.get_cpf():<23} |')
-            print(f'| {'NASCIMENTO':<15}   | {usuario.get_data_nascimento():}               |')
-            print(f'| {'Nº DE EMPRESTIMOS ':<15}| {len(usuario.get_emprestimos()):<23} |')
-            print(f"-" * 46)
-            opc = input("Deseja Listar Emprestimos do usúario(S/N): ").lower()
-            if opc ==  "s":
-                print(*usuario.get_emprestimos(), sep='\n')   
-                break
-            else:
-                break
-        input("\nPressione Enter para voltar ao menu...")
+
+    
+
     def realizar_emprestimo():
         limpar_tela()
         print("=============== REALIZAR EMPRÉSTIMO =============== ")
@@ -140,7 +138,10 @@ def funcionario():
             print("Usuario não cadrastado")
             limpar_tela()
             nome = str(input("Digite o nome: "))
-            cpf = str(input("Digite o cpf: "))
+            try:
+                cpf = str(input("Digite o cpf: "))
+            except ValueError as e:
+                    print(e)
             data_nascimento = str(input("Digite a data de nascimento: "))
             endereco = str(input("endereco: "))
             usuario = f.get_biblioteca().registrarUsuario(nome,cpf,data_nascimento,endereco)
@@ -148,16 +149,59 @@ def funcionario():
             usuario = f.get_biblioteca().getClientePorCpf(cpf)
         emprestimo = f.get_biblioteca().registrar_Emprestimo(usuario,'1-1-1990')
         nome = str(input("Digite o Nome do Livro: "))
+        
         livro,_  = B.getAcervo().consultar_livro_nome(nome)
         qntd = ler_inteiro("Digite a quantidade: ")
         emprestimo.Adicionar_livro(livro,qntd)
         emprestimo.Finalizar_emprestimo()
+        print("Emprétimo Concluido!")
         input("\nPressione Enter para voltar ao menu...")
+
+
+    def consultar_usuario():
+        #limpar_tela()
+        id = ler_inteiro("digite id ")
+        try:
+            B.buscar_usuario(id)
+            usuario = B.buscar_usuario(id)
+        
+            while True:
+
+                limpar_tela()
+                print(f"-" * 46)
+                print(f"|             FICHA DO USÚARIO                |") 
+                print("-" * 46)
+                print(f"| {'CAMPO':<15}   | {'DADOS':<23} |") # < alinha à esquerda
+                print("-" * 46)
+                print(f'| {'ID':<15}   | {usuario.get_id():<23} |')
+                print(f'| {'NOME':<15}   | {usuario.nome:<23} |')
+                print(f'| {'CPF':<15}   | {usuario.get_cpf():<23} |')
+                print(f'| {'NASCIMENTO':<15}   | {usuario.get_data_nascimento():}               |')
+                print(f'| {'Nº DE EMPRESTIMOS ':<15}| {len(usuario.get_emprestimos()):<23} |')
+                print(f"-" * 46)
+                opc = input("Deseja Listar Emprestimos do usúario(S/N): ").lower()
+                if opc ==  "s":
+                    print(*usuario.get_emprestimos(), sep='\n')   
+                    break
+                elif opc == 'n':
+                    break
+                else:
+                    print("Opção inválida!")
+                    continue
+        except ValueError as e:
+            print(e)
+            input("\nPressione Enter para voltar ao menu...")
+        input("\nPressione Enter para voltar ao menu...")
+
     def consultar_emprestimo():
         print("=============== CONSULTAR EMPRÉSTIMO =============== ")
         id = ler_inteiro("Digite o id: ")
-        print(B.consultar_emprestimo(id))
+        try:
+            print(B.consultar_emprestimo(id))
+        except ValueError as e:
+                    print(e)
         input("\nPressione Enter para voltar ao menu...")
+
     def menu():
 
         limpar_tela()
