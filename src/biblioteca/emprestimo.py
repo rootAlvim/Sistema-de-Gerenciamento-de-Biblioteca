@@ -29,7 +29,7 @@ class Emprestimo:
     def getPreco_total(self):
         return self.__preco_total
     def __str__(self):
-        return f'{self.getId()} | {self.getUsuario().nome} | {self.getLivros()} | {self.getDataEmprestimo()} | {self.getDataEntrega()} | {self.getStatus()} | {self.getPreco_total()}'
+        return f'Id do Emprestimo: {self.getId()} | Usuario: {self.getUsuario().nome} | Data: {self.getDataEmprestimo()} | Status: {self.getStatus()}'
     
     def setStatus(self,status):
         if not isinstance(status,bool):
