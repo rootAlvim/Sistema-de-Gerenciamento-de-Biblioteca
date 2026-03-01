@@ -67,6 +67,7 @@ def funcionario():
         livro = Livro(titulo, autor, editora, edicao, ano_publi, genero, preco, id_livro)
         id_livro += 1
         f.get_biblioteca().getAcervo().adicionar_livro(livro, qntd)
+
         input("\nPressione Enter para voltar ao menu...")
 
     def remover_livro():
@@ -106,7 +107,8 @@ def funcionario():
         print(*(f"{k}: {v}" for k, v in acervo.items()), sep='\n')    
         input("\nPressione Enter para voltar ao menu...")
     def consultar_usuario():
-        id = ler_inteiro("digite id")
+        limpar_tela()
+        id = ler_inteiro("digite id ")
         usuario = B.buscar_usuario(id)
         while True:
             limpar_tela()
@@ -123,7 +125,7 @@ def funcionario():
             print(f"-" * 45)
             opc = input("Deseja Listar Emprestimos do usúario(S/N): ").lower()
             if opc ==  "s":
-                print(f'{usuario.get_emprestimos()}', sep='\n')    
+                print(*usuario.get_emprestimos(), sep='\n')   
                 break
 
         input("\nPressione Enter para voltar ao menu...")
@@ -146,6 +148,10 @@ def funcionario():
         qntd = ler_inteiro("Digite a quantidade: ")
         emprestimo.Adicionar_livro(livro,qntd)
         emprestimo.Finalizar_emprestimo()
+        input("\nPressione Enter para voltar ao menu...")
+    def consultar_emprestimo():
+        id = ler_inteiro("Digite o id: ")
+        print(B.consultar_emprestimo(id))
         input("\nPressione Enter para voltar ao menu...")
     def menu():
 
@@ -189,6 +195,8 @@ def funcionario():
             realizar_emprestimo()
         elif opcao == '7':
             consultar_usuario()
+        elif opcao == '8':
+            consultar_emprestimo()
         elif opcao == '0':
             print("\nSaindo do menu... Até logo!")
             time.sleep(1)
