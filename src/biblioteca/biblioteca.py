@@ -71,6 +71,8 @@ class Biblioteca:
             if id == n.get_id():
                 return n
             break
+            
+        raise ValueError("Usuario não encontrado!")
 
     def consultar_emprestimo(self,id):
         for n in self.getEmprestimos():
