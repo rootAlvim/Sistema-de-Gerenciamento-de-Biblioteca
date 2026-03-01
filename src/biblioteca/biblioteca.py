@@ -72,8 +72,8 @@ class Biblioteca:
                 return n
             break
 
-    def consultar_emprestimo(self,usuario,id):
-        for n in usuario.get_emprestimos():
+    def consultar_emprestimo(self,id):
+        for n in self.getEmprestimos():
             if id == n.getId():
                 return n
             break
