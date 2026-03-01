@@ -67,7 +67,7 @@ def funcionario():
         livro = Livro(titulo, autor, editora, edicao, ano_publi, genero, preco, id_livro)
         id_livro += 1
         f.get_biblioteca().getAcervo().adicionar_livro(livro, qntd)
-
+        print("Livro Adicionado com Sucesso!")
         input("\nPressione Enter para voltar ao menu...")
 
     def remover_livro():
@@ -89,6 +89,7 @@ def funcionario():
             input("\nPressione Enter para voltar ao menu...")
     def buscar_livro():
         limpar_tela()
+        print("=============== BUSCAR LIVRO =============== ")
         opc = input("Buscar Livro por(Nome/Id): ".lower())
         if opc == "nome":
             nome = str(input("Digite o Nome do Livro: "))
@@ -103,6 +104,7 @@ def funcionario():
             input("\nPressione Enter para voltar ao menu...")
     def consultar_acervo():
         limpar_tela()
+        print("=============== ACERVO ATUAL =============== ")
         acervo = f.get_biblioteca().getAcervo().consultar_acervo()
         print(*(f"{k}: {v}" for k, v in acervo.items()), sep='\n')    
         input("\nPressione Enter para voltar ao menu...")
@@ -112,25 +114,27 @@ def funcionario():
         usuario = B.buscar_usuario(id)
         while True:
             limpar_tela()
-            print(f"-" * 45)
-            print(f"|             FICHA DO USÚARIO              |") 
-            print("-" * 45)
-            print(f"| {'CAMPO':<15} | {'DADOS':<23} |") # < alinha à esquerda
-            print("-" * 45)
-            print(f'| {'ID':<15} | {usuario.get_id():<23} |')
-            print(f'| {'NOME':<15} | {usuario.nome:<23} |')
-            print(f'| {'CPF':<15} | {usuario.get_cpf():<23} |')
-            print(f'| {'NASCIMENTO':<15} | {usuario.get_data_nascimento():}              | ')
-            print(f'| {'Nº DE EMPRESTIMOS ':<15} | {len(usuario.get_emprestimos()):<25} |')
-            print(f"-" * 45)
+            print(f"-" * 46)
+            print(f"|             FICHA DO USÚARIO                |") 
+            print("-" * 46)
+            print(f"| {'CAMPO':<15}   | {'DADOS':<23} |") # < alinha à esquerda
+            print("-" * 46)
+            print(f'| {'ID':<15}   | {usuario.get_id():<23} |')
+            print(f'| {'NOME':<15}   | {usuario.nome:<23} |')
+            print(f'| {'CPF':<15}   | {usuario.get_cpf():<23} |')
+            print(f'| {'NASCIMENTO':<15}   | {usuario.get_data_nascimento():}               |')
+            print(f'| {'Nº DE EMPRESTIMOS ':<15}| {len(usuario.get_emprestimos()):<23} |')
+            print(f"-" * 46)
             opc = input("Deseja Listar Emprestimos do usúario(S/N): ").lower()
             if opc ==  "s":
                 print(*usuario.get_emprestimos(), sep='\n')   
                 break
-
+            else:
+                break
         input("\nPressione Enter para voltar ao menu...")
     def realizar_emprestimo():
         limpar_tela()
+        print("=============== REALIZAR EMPRÉSTIMO =============== ")
         cpf = input("Digite o cpf do usuario: ")
         if f.get_biblioteca().getClientePorCpf(cpf) is None:
             print("Usuario não cadrastado")
@@ -150,6 +154,7 @@ def funcionario():
         emprestimo.Finalizar_emprestimo()
         input("\nPressione Enter para voltar ao menu...")
     def consultar_emprestimo():
+        print("=============== CONSULTAR EMPRÉSTIMO =============== ")
         id = ler_inteiro("Digite o id: ")
         print(B.consultar_emprestimo(id))
         input("\nPressione Enter para voltar ao menu...")
